@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+  <title>jQuery.whenInsideViewport</title>
+  <meta charset="utf-8" />
+  <style>
+    .ad {
+      width: 200px;
+      height: 500px;
+      margin-top: 2000px;
+      background: #f00;
+    }
+  </style>  
+</head>
+<body>
+  
+  <div class="ad" style="margin: 2000px 0 0;">
+    ad 1
+  </div>
+  
+  <div class="ad" style="margin: 2000px 0;">
+    ad 2
+  </div>
+  
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script src="jquery.wheninsideviewport.js"></script>
+  
+  <script>
+    
+    $(function() {
+      
+      $('.ad').whenInsideViewport({
+        minInside: 200,
+        doOnce: true,
+        whenInside: function() {
+          console.log('inside!');
+          $(this).css('background', '#0f0')
+        }
+      });
+      
+    });
+    
+  </script>
+  
+</body>
+</html>
