@@ -1,4 +1,6 @@
 (function(win, $) {
+  'use strict';
+
   $.fn.whenInsideViewport = function(options) {
 
     // default s
@@ -10,8 +12,8 @@
 
     return this.each(function() {
 
-      // s
-      s = $.extend({}, defaults, options);
+      // settings
+      var s = $.extend({}, defaults, options);
 
       // this
       var self = this;
