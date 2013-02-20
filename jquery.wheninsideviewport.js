@@ -1,7 +1,7 @@
-(function($) {
+(function(win, $) {
   $.fn.whenInsideViewport = function(options) {
 
-    // default settings
+    // default s
     var defaults = {
       minInside: 0,
       doOnce: false,
@@ -10,20 +10,20 @@
 
     return this.each(function() {
 
-      // settings
-      settings = $.extend({}, defaults, options);
+      // s
+      s = $.extend({}, defaults, options);
 
       // this
       var self = this;
 
       // window
-      var $window = $(window);
+      var $win = $(win);
 
       // el
       var $el = $(this);
 
       // window height
-      var windowHeight = $window.height();
+      var winHeight = $win.height();
 
       // el height
       var elHeight = $el.outerHeight();
@@ -38,7 +38,7 @@
       check();
 
       // window scroll
-      $window.scroll(function() {
+      $win.scroll(function() {
 
         // check
         check();
@@ -47,7 +47,7 @@
       }).resize(function() {
 
         // update window height
-        windowHeight = $(this).height();
+        winHeight = $(this).height();
 
         // update el offset
         elOffset = $el.offset().top;
@@ -58,11 +58,14 @@
       });
 
       function check() {
+        var isInsideTop = ($win.scrollTop() + winHeight) > (elOffset+s.minInside);
+        var isInsideBottom = ($win.scrollTop()) < (elOffset + elHeight - s.minInside);
+
         // is element inside viewport?
-        if ( (($window.scrollTop() + windowHeight) > (elOffset+settings.minInside)) && (($window.scrollTop()) < (elOffset + elHeight - settings.minInside))) {
+        if (isInsideTop && isInsideBottom) {
 
           // return false if its been inside and callback should only be called once
-          if (settings.doOnce && hasBeenInside) {
+          if (s.doOnce && hasBeenInside) {
             return false;
           }
 
@@ -70,11 +73,11 @@
           hasBeenInside = true;
 
           // call
-          settings.whenInside.call(self);
+          s.whenInside.call(self);
 
         }
       }
 
     });
   };
-})(jQuery);
+})(window, jQuery);
