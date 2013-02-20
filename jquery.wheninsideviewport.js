@@ -49,6 +49,9 @@
         // update window height
         windowHeight = $(this).height();
 
+        // update el offset
+        elOffset = $el.offset().top;
+
         // check
         check();
 
